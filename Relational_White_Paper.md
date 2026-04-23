@@ -1,6 +1,6 @@
 # The Intrinsic Blueprint: An Introduction to Relational Calculus
 
-**Version:** 2.1
+**Version:** 2.1.1
 **Status:** Complete Draft
 **Author:** Massimiliano Concas - Ciber Fabbrica
 **Date:** April-23-2026
