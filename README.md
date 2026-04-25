@@ -2,6 +2,10 @@
 
 **Train Bigger Models on Less Hardware. Escape the Absolute Scale Trap.**
 
+[![PyPI version](https://badge.fury.io/py/relational-calculus.svg)](https://pypi.org/project/relational-calculus/)
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)
+![Scale Invariant](https://img.shields.io/badge/Property-Scale%20Invariant-brightgreen)
+![Optimizer](https://img.shields.io/badge/Optimizer-Adam_Not_Required-blue)
 [![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.19757717-blue.svg)](https://doi.org/10.5281/zenodo.19757717)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1q9yIJpYAHJR1VveZsp4Z90Kh15PC-8o9)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
@@ -32,6 +36,32 @@ We ran a standard regression benchmark (predicting projectile range at unseen ve
 
 ---
 
+## 🔥 The Killer Feature: Immunity to Data Drift
+
+Traditional loss functions like `MSELoss` force neural networks to learn **absolute values** (e.g., guessing a stock price is exactly $150.00). This creates two massive problems in production:
+1. **Data Normalization:** You are forced to use external scalers (like `MinMaxScaler`).
+2. **Data Drift:** If the market inflates and the price jumps to $500.00, the scaler breaks and the model fails. You must retrain from scratch.
+
+**Relational Calculus solves this at the mathematical root.** By passing the dynamic local `capacity` to the loss function, the network learns **pure dimensionless ratios** (e.g., "tomorrow's price will be 95% of the recent peak") instead of dollars.
+
+### The Impact:
+* ❌ **Old Way (MSE):** Requires raw data normalization + Complex Optimizers (`Adam`) to tame exploding gradients + Fails on Data Drift.
+* ✅ **New Way (RelationalMSELoss):** Feeds on RAW unscaled data + Converges smoothly with pure `SGD` + **100% Immune to scaling and Data Drift**.
+
+### Drop-in Replacement Example:
+```python
+# 1. Import the dimensionless loss
+from relational_calculus.losses import RelationalMSELoss
+criterion = RelationalMSELoss()
+
+# 2. Inside your training loop: find the local "North Star" (Capacity)
+outputs = model(inputs)
+capacity = torch.max(inputs, dim=1)[0] # e.g., The max value of the current sequence
+
+# 3. Calculate loss using the pure geometry of the data
+loss = criterion(outputs, targets, capacity)
+
+---
 ## 🛠️ The Practitioner's Recipe (PyTorch Drop-in)
 
 To apply this framework autonomously, you only need to change your loss target. Do not change your architecture.
