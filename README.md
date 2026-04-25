@@ -2,6 +2,7 @@
 
 **Train Bigger Models on Less Hardware. Escape the Absolute Scale Trap.**
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19757717.svg)](https://doi.org/10.5281/zenodo.19757717)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1q9yIJpYAHJR1VveZsp4Z90Kh15PC-8o9)
 ![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=flat&logo=PyTorch&logoColor=white)
